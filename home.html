@@ -15,7 +15,7 @@
       }
       body {
         background-color: var(--one);
-        padding: 2%;
+        padding: 0% 2%;
         font-family: sans-serif;
         color: var(--text-color);
       }
@@ -88,6 +88,10 @@
         line-height: 1.1;
         color: var(--four);
       }
+      .orginal {
+        color: var(--four);
+        text-decoration: none;
+      }
       .title-span {
         font-size: 3rem;
         font-weight: 100;
@@ -138,6 +142,14 @@
         right: 20px;
         font-size: 1.2rem;
         font-weight: 600;
+        text-decoration: none;
+        color: var(--four);
+      }
+      .arrow1 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--four);
       }
       .sidebar {
         display: flex;
@@ -206,6 +218,11 @@
         left: 40px;
         font-size: 1rem;
       }
+      .socials a,
+      .socials a:hover,
+      .socials a:active {
+        color: var(--light-text-color);
+      }
     </style>
   </head>
   <body>
@@ -218,11 +235,13 @@
             </p>
           </div>
           <div style="width: 20%; height: auto">
-            <ul class="nav-text" style="width: auto; margin: 3% 0%">
-              <li>PROJECTS</li>
-              <li>ABOUT</li>
-              <li>CONTACT</li>
-            </ul>
+            <a href="home.html" target="_blank" class="orginal"
+              ><ul class="nav-text" style="width: auto; margin: 3% 0%">
+                <li>PROJECTS</li>
+                <li>ABOUT</li>
+                <li>CONTACT</li>
+              </ul></a
+            >
           </div>
         </div>
       </div>
@@ -231,8 +250,8 @@
       <div class="main-content">
         <div class="top-grid">
           <div class="box1 title-box">
-            <span class="graphic flower"
-              ><img src="" alt="" height="25px" width="25px" />
+            <span class="graphic flower">
+              <!-- <img src="" alt="" height="25px" width="25px" /> -->
             </span>
             <p class="title">
               <b> Artist Redefining</b>
@@ -258,7 +277,7 @@
           </div>
           <div class="box2 contact-card">
             <span class="contact-text">Have some questions?</span>
-            <span class="arrow">↗</span>
+            <a href="home.html" target="_blank"><span class="arrow">↗</span></a>
             <p class="contact-main">Contact me</p>
           </div>
         </div>
@@ -275,7 +294,9 @@
                 "
               ></div>
             </div>
-            <span>↗</span>
+            <a href="home.html" target="_blank" style="text-decoration: none">
+              <span class="arrow1">↗</span></a
+            >
           </div>
           <div class="project-item">
             <span>Elara</span>
@@ -288,9 +309,13 @@
           </div>
         </div>
         <div class="socials box1" style="border-radius: 5px">
-          <span>INSTAGRAM</span>
-          <span>TWITTER</span>
-          <span>LINKEDIN</span>
+          <a href="https://www.instagram.com/" target="_blank"
+            ><span>INSTAGRAM</span></a
+          >
+          <a href="https://x.com/home" target="_blank"><span>TWITTER</span></a>
+          <a href="https://www.linkedin.com/mynetwork/grow/" target="_blank"
+            ><span>LINKEDIN</span></a
+          >
         </div>
       </div>
     </div>
