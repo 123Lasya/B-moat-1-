@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task-4</title>
+    <style>
+      .container {
+        max-width: 800px;
+        margin: 30px auto;
+        font-family: Arial, sans-serif;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+        cursor: pointer;
+      }
+      #sinput {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+      }
+      /* Just showing the sort direction */
+      .sortsymbol {
+        font-size: 12px;
+        margin-left: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Employee List</h2>
+      <!-- while typing the input the taable will adopt to it -->
+      <input type="text" id="sinput" placeholder="Search by employee name" />
+
+      <!-- employee table -->
+      <table class="one">
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Role</th>
+          <th id="shead">
+            Salary
+            <!-- Small text to show sort direction -->
+            <span id="sorticon" class="sortsymbol">↕</span>
+          </th>
+        </tr>
+      </table>
+    </div>
+
+    <script>
+      const employees = [
+        { id: 1, name: "Alice Johnson", role: "Developer", salary: 80000 },
+        { id: 2, name: "Bob Smith", role: "Designer", salary: 75000 },
+        { id: 3, name: "Charlie Brown", role: "Manager", salary: 90000 },
+        { id: 4, name: "David White", role: "Developer", salary: 82000 },
+        { id: 5, name: "Eva Green", role: "QA", salary: 70000 },
+      ];
+      const table = document.querySelector(".one");
+      const sinput = document.getElementById("sinput");
+      const shead = document.getElementById("shead"); // salary header
+      const sorticon = document.getElementById("sorticon");
+      let current = "";
+      let ascending = true; // true = Low to High, false = High to Low
+      // This function draws the table rows based on given data
+      function renderTable(dataArray) {
+        // First, remove all rows except the header row
+        // table.rows.length = total number of rows in table
+        while (table.rows.length > 1) {
+          table.deleteRow(1);
+        }
+        // now loop through the array and create new rows
+        dataArray.forEach((emp) => {
+          const row = table.insertRow(); // create a new row at the end
+          // Insert cells for id, name, role, salary
+          const idCell = row.insertCell();
+          const nameCell = row.insertCell();
+          const roleCell = row.insertCell();
+          const salaryCell = row.insertCell();
+          // inserting values
+          idCell.textContent = emp.id;
+          nameCell.textContent = emp.name;
+          roleCell.textContent = emp.role;
+          salaryCell.textContent = emp.salary;
+        });
+      }
+      function applyFiltersAndRender() {
+        // Filter based on name (case-insensitive)
+        const filtered = employees.filter((emp) =>
+          emp.name.toLowerCase().includes(current.toLowerCase())
+        );
+        // slice() to create a copy of array (to avoid changing "filtered" directly)
+        const sorted = filtered.slice().sort((a, b) => {
+          if (ascending) {
+            return a.salary - b.salary; // low to high
+          } else {
+            return b.salary - a.salary; // high to low
+          }
+        });
+
+        // render the final array to table
+        renderTable(sorted);
+      }
+      // when typed in serch box
+      sinput.addEventListener("input", function () {
+        // Saving the current search text
+        current = sinput.value;
+        // appling filters and re-render
+        applyFiltersAndRender();
+      });
+      shead.addEventListener("click", function () {
+        // Toggle the sort direction
+        ascending = !ascending;
+        if (ascending) {
+          sorticon.textContent = "▲"; // ascending
+        } else {
+          sorticon.textContent = "⯆"; // descending
+        }
+        applyFiltersAndRender();
+      });
+      // At first there is no search filter ( ascending = true )
+      applyFiltersAndRender();
+    </script>
+  </body>
+</html>
