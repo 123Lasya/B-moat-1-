@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bootstrap Real-Time Form Validation</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    />
+
+    <style>
+      .valid-i {
+        border: 2px solid green !important;
+      }
+
+      .invalid-i {
+        border: 2px solid red !important;
+      }
+
+      /* Styling for error messages */
+      .error-msg {
+        color: red;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+
+  <body class="">
+    <div class="container mt-5">
+      <div class="row justify-content-center">
+        <div class="col-md-6 col-11">
+          <div class="p-4">
+            <h3 class="text-center mb-3">Sign Up</h3>
+
+            <!-- form -->
+            <form>
+              <!-- user name -->
+              <div class="mb-3">
+                <label class="form-label">User Name</label>
+                <input type="text" id="uname" class="form-control" />
+                <!-- error message will appear here -->
+                <p class="error-msg" id="unameError"></p>
+              </div>
+              <!-- email  -->
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" id="email" class="form-control" />
+                <p class="error-msg" id="emailError"></p>
+              </div>
+
+              <!-- pasword -->
+              <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" id="password" class="form-control" />
+                <p class="error-msg" id="passwordError"></p>
+              </div>
+
+              <!-- confirmaing password -->
+              <div class="mb-3">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" id="cPassword" class="form-control" />
+                <p class="error-msg" id="cPasswordError"></p>
+              </div>
+              <button class="btn btn-primary w-100" id="sbtn" disabled>
+                Submit
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JAVASCRIPT SECTION -->
+    <script>
+      // geting inputs
+      const uname = document.getElementById("uname");
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+      const cPassword = document.getElementById("cPassword");
+      const sbtn = document.getElementById("sbtn");
+      // for error message formating
+      const unameError = document.getElementById("unameError");
+      const emailError = document.getElementById("emailError");
+      const passwordError = document.getElementById("passwordError");
+      const cPasswordError = document.getElementById("cPasswordError");
+      // flags to check validity
+      let vname = false;
+      let vemail = false;
+      let vpassword = false;
+      let validCPassword = false;
+      uname.addEventListener("input", () => {
+        // uname >= 3 characters
+        if (uname.value.length >= 3) {
+          makeValid(uname, unameError); // applying green border
+          vname = true;
+        } else {
+          makeInvalid(uname, unameError, "At least 3 characters required");
+          vname = false;
+        }
+        enableBtn(); // checking  to enable submit button
+      });
+      email.addEventListener("input", () => {
+        // Email = @ and .
+        if (email.value.includes("@") && email.value.includes(".")) {
+          makeValid(email, emailError);
+          vemail = true;
+        } else {
+          makeInvalid(email, emailError, "Enter a valid email");
+          vemail = false;
+        }
+        enableBtn();
+      });
+      password.addEventListener("input", () => {
+        // Password >= 6 characters
+        if (password.value.length > 6) {
+          makeValid(password, passwordError);
+          vpassword = true;
+        } else {
+          makeInvalid(
+            password,
+            passwordError,
+            "Password must be more than 6 characters"
+          );
+          vpassword = false;
+        }
+        enableBtn();
+      });
+      cPassword.addEventListener("input", () => {
+        // matching the password
+        if (cPassword.value === password.value && cPassword.value !== "") {
+          makeValid(cPassword, cPasswordError);
+          validCPassword = true;
+        } else {
+          makeInvalid(cPassword, cPasswordError, "Passwords do not match");
+          validCPassword = false;
+        }
+        enableBtn();
+      });
+      function makeValid(input, errorTag) {
+        input.classList.add("valid-i"); // green border
+        input.classList.remove("invalid-i");
+        errorTag.innerText = "";
+      }
+      function makeInvalid(input, errorTag, message) {
+        input.classList.add("invalid-i"); // red border
+        input.classList.remove("valid-i");
+        errorTag.innerText = message;
+      }
+      // enabling button when all fields are valid
+      function enableBtn() {
+        if (vname && vemail && vpassword && vcpassword) {
+          sbtn.disabled = false; // enabling button
+        } else {
+          sbtn.disabled = true; // disabled
+        }
+      }
+    </script>
+  </body>
+</html>
